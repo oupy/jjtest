@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2b308d32-3369-4bda-8c36-8eef96f99e74" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/versioninfo.txt" afterPath="$PROJECT_DIR$/versioninfo.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jjtest.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,9 +37,9 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/versioninfo.txt" />
         <option value="$PROJECT_DIR$/.git/phpstorm.gitignore" />
         <option value="$PROJECT_DIR$/.git/.gitignore" />
+        <option value="$PROJECT_DIR$/versioninfo.txt" />
       </list>
     </option>
   </component>
@@ -185,14 +184,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/versioninfo.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="7" selection-start="17" selection-end="17" vertical-scroll-proportion="0.031301484" vertical-offset="0" max-vertical-offset="607">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.git/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="607">
+        <state line="2" column="9" selection-start="27" selection-end="27" vertical-scroll-proportion="0.06260297" vertical-offset="0" max-vertical-offset="607">
           <folding />
         </state>
       </provider>
