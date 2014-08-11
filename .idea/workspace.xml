@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b308d32-3369-4bda-8c36-8eef96f99e74" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/versioninfo.txt" afterPath="$PROJECT_DIR$/versioninfo.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="jjtest.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,6 +41,7 @@
         <option value="$PROJECT_DIR$/.git/phpstorm.gitignore" />
         <option value="$PROJECT_DIR$/.git/.gitignore" />
         <option value="$PROJECT_DIR$/versioninfo.txt" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -132,7 +134,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -185,6 +187,13 @@
     <entry file="file://$PROJECT_DIR$/versioninfo.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="9" selection-start="27" selection-end="27" vertical-scroll-proportion="0.06260297" vertical-offset="0" max-vertical-offset="607">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="5" selection-start="17" selection-end="17" vertical-scroll-proportion="0.031301484" vertical-offset="0" max-vertical-offset="607">
           <folding />
         </state>
       </provider>
