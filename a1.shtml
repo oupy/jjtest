@@ -1,0 +1,1169 @@
+<script>(function () {
+    with (this[2]) {
+        with (this[1]) {
+            with (this[0]) {
+                return function (event) {
+                    speedTimePoint[6] = (new Date());
+                };
+            }
+        }
+    }
+})</script>
+
+
+<script>
+    window['PP.wx.badjs.time'] && window['PP.wx.badjs.time'].push(new Date());
+    function $initBadjs() {
+        var errorStr = "";
+        var getStack = function () {
+            if (arguments.callee.caller.caller) {
+                var curr = arguments.callee.caller.caller, c, o = [];
+                while (curr) {
+                    c = curr;
+                    o.push('[' + $transJson2str(curr.arguments) + ']' + c.toString().replace(/[\t\n\r]/g, "").substring(0, 100));
+                    curr = curr.caller;
+                }
+                return o.join(":");
+            } else {
+                return"";
+            }
+        }
+        window.onerror = function (msg, url, l) {
+            var stack = getStack(), ts = String(msg).replace(/\n/g, " ") + "|" + encodeURIComponent(url + ":" + stack) + "|" + l;
+            window._last_err_msg = {msg: msg, url: url, l: l, stack: stack};
+            if (errorStr.indexOf(ts) == -1 || window._badjs_allow_resend) {
+                errorStr += ts + ",";
+                $sendBadjs(msg, url, l + ":" + stack);
+            }
+            return false
+        }
+    }
+    ;
+    function $namespace(name) {
+        for (var arr = name.split(','), r = 0, len = arr.length; r < len; r++) {
+            for (var i = 0, k, name = arr[r].split('.'), parent = {}; k = name[i]; i++) {
+                i === 0 ? eval('(typeof ' + k + ')==="undefined"?(' + k + '={}):"";parent=' + k) : (parent = parent[k] = parent[k] || {});
+            }
+        }
+    }
+    ;
+    function $sendBadjs(msg, src, d) {
+        var ua = navigator.userAgent.toLowerCase(), bom = window.ActiveXObject ? "IE" + ua.match(/msie ([\d.]+)/)[1] : (ua.indexOf("firefox") != -1) ? "Firefox" + ua.match(/firefox\/([\d.]+)/)[1] : (ua.indexOf("chrome") != -1) ? "Chrome" + ua.match(/chrome\/([\d.]+)/)[1] : window.opera ? "Opera" + ua.match(/opera.([\d.]+)/)[1] : window.openDatabase ? "Safari" + ua.match(/version\/([\d.]+)/)[1] : ua.replace(/\s*/g, ""), ts = msg.replace(/\n/g, " ").replace(/\|/g, ";") + "|" + encodeURIComponent(src) + "|" + d.replace(/\|/g, ";");
+        setTimeout(function () {
+            sr = document.createElement("script");
+            document.getElementsByTagName("head")[0].appendChild(sr);
+            sr.src = "http://party.paipai.com/cgi-bin/badjs?Browser=" + bom + "&Url=" + encodeURIComponent(location.href) + "&Content=" + ts + "&t=" + Math.random();
+        }, 1000);
+    }
+    ;
+    function $transJson2str(o) {
+        if (o == undefined) {
+            return"";
+        }
+        var r = [];
+        if (typeof o == "string")return"\"" + o.replace(/([\"\\])/g, "\\$1").replace(/(\n)/g, "\\n").replace(/(\r)/g, "\\r").replace(/(\t)/g, "\\t") + "\"";
+        if (typeof o == "object") {
+            if (o.nodeName) {
+                r.push(["document node", "nodeName:" + o.nodeName, "id:" + o.id, "class:" + o.className].join('-'));
+                r = "{" + r.join() + "}";
+            }
+            else if (!o.sort) {
+                for (var i in o)
+                    r.push("\"" + i + "\":" + $transJson2str(o[i]));
+                if (!!document.all && !/^\n?function\s*toString\(\)\s*\{\n?\s*\[native code\]\n?\s*\}\n?\s*$/.test(o.toString)) {
+                    r.push("toString:" + o.toString.toString());
+                }
+                r = "{" + r.join() + "}";
+            } else {
+                for (var i = 0; i < o.length; i++)
+                    r.push($transJson2str(o[i]));
+                r = "[" + r.join() + "]";
+            }
+            return r;
+        }
+        return o.toString().replace(/\"\:/g, '":""');
+    }
+    ;
+    $namespace("PP.wx.badjs");
+    PP.wx.badjs.init = function () {
+        $initBadjs();
+    };
+    PP.wx.badjs.init();
+    window['PP.wx.badjs'] = '21994:20140225:20140508112656';
+    window['PP.wx.badjs.time'] && window['PP.wx.badjs.time'].push(new Date());
+</script>
+<script>
+    var JD = {};
+    JD.send = function (e) {
+        var t = (new Date).getTime(), n = "_COUNTRD" + t++;
+        try {
+            window[n] = new Image, window[n].src = e
+        } catch (r) {
+        }
+    }, JD.report = {itil: function (e) {
+        var t = {bid: "1", mid: "01", res: [], onBeforeReport: null, delay: 5e3};
+        for (var n in e)t[n] = e[n];
+        t.res.length > 0 && (window.reportWebInfo = function () {
+        }, window.setTimeout(function () {
+            t.onBeforeReport && t.onBeforeReport(t);
+            var e = t.bid + t.mid + "-" + t.res.join("|"), n = "http://bases.wanggou.com/mcoss/webreport/ReportWebInfo?report=" + e + "&t=" + new Date / 1e3;
+            JD.send(n)
+        }, t.delay))
+    }, rd: function (e, t) {
+        var n = e.split("."), r = t || 100, a = (new Date).getTime(), o = ("_COUNTRD" + a++, "http://service.paipai.com/cgi-bin/ping?u=http://jsrd.paipai.com&fu=http://jsrd.paipai.com%3FPTAG%3D" + e + "&resolution=1024*768");
+        o += "&fpageId=" + n[0] + "&fdomainId=" + n[1] + "&flinkId=" + n[2], o += "&" + Math.random(), Math.random() <= r / 100 && JD.send(o)
+    }, speed: function () {
+    }}, JD.cookie = {get: function (e) {
+        var t = new RegExp("(^| )" + e + "(?:=([^;]*))?(;|$)"), n = document.cookie.match(t);
+        return n ? n[2] ? unescape(n[2]) : "" : null
+    }, set: function (e, t, n, r, a, o) {
+        var i = new Date, n = arguments[2] || null, r = arguments[3] || "/", a = arguments[4] || null, o = arguments[5] || !1;
+        n ? i.setMinutes(i.getMinutes() + parseInt(n)) : "", document.cookie = e + "=" + escape(t) + (n ? ";expires=" + i.toGMTString() : "") + (r ? ";path=" + r : "") + (a ? ";domain=" + a : "") + (o ? ";secure" : "")
+    }, del: function (e, t, n, r) {
+        var a = getCookie(e);
+        if (null != a) {
+            var o = new Date;
+            o.setMinutes(o.getMinutes() - 1e3), t = t || "/", document.cookie = e + "=;expires=" + o.toGMTString() + (t ? ";path=" + t : "") + (n ? ";domain=" + n : "") + (r ? ";secure" : "")
+        }
+    }}, JD.url = {setHash: function (e) {
+        setTimeout(function () {
+            location.hash = e
+        }, 0)
+    }, getHash: function (e) {
+        var t = e || location.hash;
+        return t ? t.replace(/.*#/, "") : ""
+    }, getHashModelName: function () {
+        var e = this.getHash();
+        return e ? e.split("&")[0].split("=")[0] : []
+    }, getHashActionName: function () {
+        var e = this.getHash();
+        return"" == e ? "" : (e ? e.split("&") : [])[0].split("=")[1]
+    }, getHashParam: function (e) {
+        var t = this.getHash().match(new RegExp("(^|&)" + e + "=([^&]*)(&|$)"));
+        return null != t ? t[2] : ""
+    }, getUrlParam: function (e) {
+        var t = arguments[1] || window.location.search, n = new RegExp("(^|&)" + e + "=([^&]*)(&|$)"), r = t.substr(t.indexOf("?") + 1).match(n);
+        return null != r ? r[2] : ""
+    }, getParams: function () {
+        var e = [], t = this.getHash();
+        paramArr = t ? t.split("&") : [];
+        for (var n = 1, r = paramArr.length; r > n; n++)e.push(paramArr[n]);
+        return e
+    }, decodeUrl: function (e) {
+        e = decodeURIComponent(e);
+        var t = this.parseUrl(e), n = [];
+        $.each(t.params, function (e, t) {
+            t = decodeURIComponent(t), n.push(e + "=" + t)
+        });
+        var r = e.split("?")[0];
+        return r + "?" + n.join("&")
+    }, parseUrl: function (e) {
+        var t = document.createElement("a");
+        return t.href = e, {source: e, protocol: t.protocol.replace(":", ""), host: t.hostname, port: t.port, query: t.search, params: function () {
+            for (var e, n = {}, r = t.search.replace(/^\?/, "").split("&"), a = r.length, o = 0; a > o; o++)r[o] && (e = r[o].split("="), n[e[0]] = e[1]);
+            return n
+        }(), file: (t.pathname.match(/([^\/?#]+)$/i) || [, ""])[1], hash: t.hash.replace("#", ""), path: t.pathname.replace(/^([^\/])/, "/$1"), relative: (t.href.match(/tps?:\/\/[^\/]+(.+)/) || [, ""])[1], segments: t.pathname.replace(/^\//, "").split("/")}
+    }};
+</script>
+<script>
+window.setTimeout(function () {
+    var head = document.getElementsByTagName('head')[0];
+    var js = document.createElement("script");
+    js.charset = "gbk";
+    js.type = "text/javascript";
+    js.src = "http://static.paipaiimg.com/js/version/2014/06/pp.wg.jdSmartbox.20140605.js?t=201407301456";
+    head.appendChild(js);
+    js.onload = function () {
+        PP.wg.jdSmartbox.init({
+            scene: 2,
+            kwObj: 'topSearchTxt',
+            clearBtn: 'topSearchClear',
+            cancelBtn: 'topSearchCbtn',
+            smartWrap: 'smartboxBlock',
+            showCb: function () {
+                document.querySelector('.Top_tab').style.display = "none";
+                document.querySelector('.wx_wrap').style.display = "none";
+                document.querySelector('.wx_footer').style.display = "none";
+                document.querySelector('.WX_search_frm').className = "WX_search_frm WX_search_frm_focus";
+                //document.querySelector('.WX_me').style.display = "";
+                document.getElementById('topSearchCbtn').style.display = "";
+                document.body.style.minHeight = '';
+                var jdapp = document.getElementById('jdappdlOutter'),
+                        wxNav = document.querySelector('.wx_nav');
+                jdapp && (jdapp.style.display = "none");
+                wxNav && (wxNav.style.display = "none");
+            },
+            hideCb: function () {
+                document.getElementById('topSearchTxt').value = '';
+                document.querySelector('.Top_tab').style.display = "block";
+                document.querySelector('.wx_wrap').style.display = "block";
+                document.querySelector('.wx_footer').style.display = "block";
+                document.querySelector('.WX_search_frm').className = "WX_search_frm";
+                //document.querySelector('.WX_me').style.display = "none";
+                document.getElementById('topSearchCbtn').style.display = "none";
+                document.body.style.minHeight = '1000px';
+                /*window.setTimeout(function() {
+                 document.getElementById('topSearchTxt').blur();
+
+                 }, 300);*/
+                var jdapp = document.getElementById('jdappdlOutter'),
+                        wxNav = document.querySelector('.wx_nav');
+                jdapp && (jdapp.style.display = "");
+                wxNav && (wxNav.style.display = "");
+            },
+            keyInput: function (key) {
+                if (key == '') {
+                    document.getElementById('topSearchClear').style.display = "none";
+                } else {
+                    document.getElementById('topSearchClear').style.display = "";
+                }
+            }
+        });
+    };
+}, 0);
+(function () {
+    function $id(id) {
+        return document.getElementById(id);
+    }
+
+    function countRd(rd, random) {
+        var arrRd = rd.split("."),
+                ls = require('loadscript'),
+                rand = random || 100,
+                _guid = (new Date()).getTime();
+        var jsrdUrl = "http://service.paipai.com/cgi-bin/ping?u=http://jsrd.paipai.com&fu=http://jsrd.paipai.com%3FPTAG%3D" + rd + "&resolution=1024*768";
+        jsrdUrl += "&fpageId=" + arrRd[0] + "&fdomainId=" + arrRd[1] + "&flinkId=" + arrRd[2];
+        jsrdUrl += '&' + Math.random()
+        if (Math.random() <= rand / 100) {
+            try {
+                var _rName = '_COUNTRD' + _guid++;
+                window[_rName] = new Image();
+                window[_rName].src = jsrdUrl;
+
+            } catch (e) {
+            }
+        }
+    }
+
+    function getY(e) {
+        var t = e.offsetTop || 0;
+        while (e = e.offsetParent) {
+            t += e.offsetTop;
+        }
+        return t;
+    }
+
+    function checkBar() {
+        if (!gSupport.sticky) {
+            if (window.scrollY > wxTabOffset) {
+                if (wxTab.className.indexOf('WX_tab_fixed') === -1) {
+                    wxTab.className += ' WX_tab_fixed';
+                }
+            } else {
+                if (wxTab.className.indexOf('WX_tab_fixed') > -1) {
+                    wxTab.className = wxTab.className.replace(' WX_tab_fixed', '');
+                }
+            }
+        }
+    }
+
+    function getQuery(name, url) {
+        var u = arguments[1] || window.location.search,
+                reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+                r = u.substr(u.indexOf("\?") + 1).match(reg);
+        return r != null ? r[2] : "";
+    }
+
+    function getCookie(name) {
+        var reg = new RegExp("(^| )" + name + "(?:=([^;]*))?(;|$)"), val = document.cookie.match(reg);
+        return val ? (val[2] ? unescape(val[2]) : "") : null;
+    }
+
+    var params = (/(?:\?|&)ptype=(\d+)/i).exec(location.href),
+            ptype = params ? params[1] : '',
+            ptags = [],
+            chs = [];
+    if (window.localStorage) {
+        if (ptype) {
+            localStorage.setItem('ptype', ptype);
+        } else {
+            ptype = localStorage.getItem('ptype');
+        }
+    }
+
+    if (ptype == 3) {
+        document.title = '精选商品';
+        ptags = ['37048.1.3', '37048.1.1', '37048.1.2', '37048.3.1', '37048.3.2', '37048.3.3', '37048.3.4', '37048.2.2'];
+        chs = [101, 9, 30];
+    } else if (ptype == 2 || window.__sence == 'qq') {
+        document.title = '京东购物';
+        ptags = ['37046.1.3', '37046.1.1', '37046.1.2', '37046.3.1', '37046.3.2', '37046.3.3', '37046.3.4', '37046.2.2'];
+        chs = [106, 27, 39];
+    } else {
+        document.title = '购物';
+        ptags = ['37035.1.3', '37035.1.1', '37035.1.2', '37035.3.1', '37035.3.2', '37035.3.3', '37035.3.4', '37035.2.2'];
+        chs = [108, 29, 41];
+    }
+
+    var viewData = JSON.parse(document.querySelector(".J_viewData").value),
+            jTab = $id('__juhuiTab'),
+            mTab = $id('__mallTab'),
+            xTab = $id('__xinTab'),
+            uc = $id('__uc'),
+            history = $id('__history'),
+            fav = $id('__fav'),
+            cate = $id('__cate'),
+            wxmall_static = getQuery("static") || getCookie("wxmall_static"),
+            temaiStatic = wxmall_static && (wxmall_static & 2) > 0;
+    if (viewData.tab == 3) {
+        jTab.className = 'on';
+
+    } else if (viewData.tab == 2) {
+        mTab.className = 'on';
+    } else {
+        xTab.className = 'on';
+    }
+
+    if (temaiStatic) {
+        var id = getQuery("id", mTab.href);
+        mTab.href = id == "1562" ? "http://mm.wanggou.com/sinclude/tws/focus/cpt/wx/1562/1562_1_200_1.html?id=1562&webview=1&" : "http://mm.wanggou.com/sinclude/tws/focus/cpt/sq/1901/1901_1_200_2.html?id=1901&webview=2&_wv=1&";
+    }
+    mTab.href += 'PTAG=' + ptags[1] + '&ch=' + chs[1];
+    xTab.href += 'PTAG=' + ptags[0] + '&ch=' + chs[0];
+    jTab.href += 'PTAG=' + ptags[2] + '&ch=' + chs[2];
+    uc.href += 'PTAG=' + ptags[3];
+    history.href += 'PTAG=' + ptags[4];
+    fav.href += 'PTAG=' + ptags[5];
+    cate.href += 'PTAG=' + ptags[7];
+
+    var subMenu = document.querySelector('.WX_me'),
+            funcsBtn = $id('__funcs'),
+            pop = document.querySelector('.WX_me_pop'),
+            wxTab = document.querySelector('.WX_tab'),
+            wxTabOffset = getY(wxTab);
+
+    funcsBtn.addEventListener('touchstart', function (e) {
+        if (pop.style.display === 'block') {
+            pop.style.display = 'none';
+        } else {
+            pop.style.display = 'block';
+        }
+        countRd(ptags[5]);
+    });
+
+    document.addEventListener('touchmove', function () {
+        checkBar();
+        pop.style.display = 'none';
+    });
+    document.addEventListener('scroll', function () {
+        checkBar();
+        pop.style.display = 'none';
+    });
+
+    var promote = $id('__promote'),
+            date = Date.now();
+    if (promote) {
+        var items = promote.getElementsByTagName('A'),
+                reg = /-/g;
+        for (var i = 0; i < items.length; i++) {
+            var begin = (new Date(items[i].getAttribute('data-begin').replace(reg, '/'))).getTime(),
+                    end = (new Date(items[i].getAttribute('data-end').replace(reg, '/'))).getTime();
+            if (date >= begin && date <= end) {
+                items[i].style.display = '';
+                promote.style.display = '';
+                break;
+            }
+        }
+    }
+})();
+</script>
+
+
+<script>if (typeof JSON !== "object") {
+    JSON = {};
+}
+(function () {
+    function f(n) {
+        return n < 10 ? "0" + n : n;
+    }
+
+    if (typeof Date.prototype.toJSON !== "function") {
+        Date.prototype.toJSON = function (key) {
+            return isFinite(this.valueOf()) ? this.getUTCFullYear() + "-" + f(this.getUTCMonth() + 1) + "-" + f(this.getUTCDate()) + "T" + f(this.getUTCHours()) + ":" + f(this.getUTCMinutes()) + ":" + f(this.getUTCSeconds()) + "Z" : null;
+        };
+        String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function (key) {
+            return this.valueOf();
+        };
+    }
+    var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g, escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g, gap, indent, meta = {"\b": "\\b", "\t": "\\t", "\n": "\\n", "\f": "\\f", "\r": "\\r", '"': '\\"', "\\": "\\\\"}, rep;
+
+    function quote(string) {
+        escapable.lastIndex = 0;
+        return escapable.test(string) ? '"' + string.replace(escapable, function (a) {
+            var c = meta[a];
+            return typeof c === "string" ? c : "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
+        }) + '"' : '"' + string + '"';
+    }
+
+    function str(key, holder) {
+        var i, k, v, length, mind = gap, partial, value = holder[key];
+        if (value && typeof value === "object" && typeof value.toJSON === "function") {
+            value = value.toJSON(key);
+        }
+        if (typeof rep === "function") {
+            value = rep.call(holder, key, value);
+        }
+        switch (typeof value) {
+            case"string":
+                return quote(value);
+            case"number":
+                return isFinite(value) ? String(value) : "null";
+            case"boolean":
+            case"null":
+                return String(value);
+            case"object":
+                if (!value) {
+                    return"null";
+                }
+                gap += indent;
+                partial = [];
+                if (Object.prototype.toString.apply(value) === "[object Array]") {
+                    length = value.length;
+                    for (i = 0; i < length; i += 1) {
+                        partial[i] = str(i, value) || "null";
+                    }
+                    v = partial.length === 0 ? "[]" : gap ? "[\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "]" : "[" + partial.join(",") + "]";
+                    gap = mind;
+                    return v;
+                }
+                if (rep && typeof rep === "object") {
+                    length = rep.length;
+                    for (i = 0; i < length; i += 1) {
+                        if (typeof rep[i] === "string") {
+                            k = rep[i];
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ": " : ":") + v);
+                            }
+                        }
+                    }
+                } else {
+                    for (k in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ": " : ":") + v);
+                            }
+                        }
+                    }
+                }
+                v = partial.length === 0 ? "{}" : gap ? "{\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "}" : "{" + partial.join(",") + "}";
+                gap = mind;
+                return v;
+        }
+    }
+
+    if (typeof JSON.stringify !== "function") {
+        JSON.stringify = function (value, replacer, space) {
+            var i;
+            gap = "";
+            indent = "";
+            if (typeof space === "number") {
+                for (i = 0; i < space; i += 1) {
+                    indent += " ";
+                }
+            } else {
+                if (typeof space === "string") {
+                    indent = space;
+                }
+            }
+            rep = replacer;
+            if (replacer && typeof replacer !== "function" && (typeof replacer !== "object" || typeof replacer.length !== "number")) {
+                throw new Error("JSON.stringify");
+            }
+            return str("", {"": value});
+        };
+    }
+    if (typeof JSON.parse !== "function") {
+        JSON.parse = function (text, reviver) {
+            var j;
+
+            function walk(holder, key) {
+                var k, v, value = holder[key];
+                if (value && typeof value === "object") {
+                    for (k in value) {
+                        if (Object.prototype.hasOwnProperty.call(value, k)) {
+                            v = walk(value, k);
+                            if (v !== undefined) {
+                                value[k] = v;
+                            } else {
+                                delete value[k];
+                            }
+                        }
+                    }
+                }
+                return reviver.call(holder, key, value);
+            }
+
+            text = String(text);
+            cx.lastIndex = 0;
+            if (cx.test(text)) {
+                text = text.replace(cx, function (a) {
+                    return"\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
+                });
+            }
+            if (/^[\],:{}\s]*$/.test(text.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, "@").replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, "]").replace(/(?:^|:|,)(?:\s*\[)+/g, ""))) {
+                j = eval("(" + text + ")");
+                return typeof reviver === "function" ? walk({"": j}, "") : j;
+            }
+            throw new SyntaxError("JSON.parse");
+        };
+    }
+}());
+var modulejs, require, define;
+(function (global) {
+    var mod, cfg, _modulejs, _define, _require;
+    var version = "1.0.2";
+    var isCache = true;
+    var cacheTime = 60 * 60 * 24 * 30 * 1000;
+    cfg = {debug: location.href.indexOf("mdebug=1") != -1 ? true : false, alias: {}, cssAlias: {}, moduleURI: {}, vars: {}, uris: {}, modules: {}, callback: [], actModules: {}, cacheLoad: {}, cacheDel: {}, deps: {}, events: {}, timing: {}};
+    _modulejs.config = config;
+    config(global["_moduleConfig"] ? global._moduleConfig : cfg);
+    global["_moduleConfig"] = cfg;
+    require = _require;
+    define = _define;
+    modulejs = _modulejs;
+    on("module_ready", function (id, fromeCache) {
+        cfg.callback = cleanArray(cfg.callback);
+        var init = cfg.callback, l = init.length;
+        for (var i = 0; i < l; i++) {
+            if (init[i] && checkDeps(init[i].dependencies)) {
+                var cb = init[i].factory;
+                var deps = init[i].dependencies;
+                var mods = [];
+                var allDeps = [];
+                var m;
+                for (var j = 0; j < deps.length; j++) {
+                    var m = _require(deps[j]);
+                    allDeps.push(m.dependencies);
+                    mods.push(m);
+                }
+                debug("callback_is_run=start", cb.toString(), cfg.callback);
+                init[i] = null;
+                cb.apply(null, mods);
+                cfg.debug && emit("callback_is_run", cb.toString().replace(/[\r\n]/g, ""));
+            }
+        }
+    });
+    on("module_require", function (id) {
+        cfg.actModules[id] = cfg.actModules[id] ? (cfg.actModules[id] + 1) : 1;
+    });
+    on("module_cacheDel", function (id) {
+        cfg.cacheDel[id] = 1;
+    });
+    on("cache_load", function (m) {
+    });
+    on("module_loss_alias", function (id) {
+        console.error("module_loss_alias:" + id);
+    });
+    var cacheNow = new Date();
+    _loadCache();
+    cfg.timing['loadcache'] = new Date() - cacheNow;
+    function _loadCache() {
+        if (!_useCache()) {
+            return false;
+        }
+        localStorage.removeItem("_modules");
+        for (var key in localStorage) {
+            if (/^_m_/.test(key)) {
+                var store = JSON.parse(localStorage.getItem(key));
+                var i = key.substr(3);
+                var now = (new Date()).getTime();
+                var oneDay = 24 * 3600 * 1000;
+                if (cfg.alias[i]) {
+                    if (_getModuleURI(i) != store.path || store.deps.join(",").indexOf("{") > -1) {
+                        emit("module_cacheDel", i);
+                        localStorage.removeItem(key);
+                        continue;
+                    }
+                } else {
+                    if (now > store.cacheTime) {
+                        emit("module_cacheDel", i);
+                        localStorage.removeItem(key);
+                        continue;
+                    }
+                }
+                if (store.cacheTime - now < oneDay) {
+                    store.cacheTime = (new Date()).getTime() + cacheTime;
+                    try {
+                        localStorage.removeItem(key);
+                        localStorage.setItem(key, JSON.stringify(store));
+                    } catch (e) {
+                    }
+                }
+                cfg.cacheLoad[store.id] = store;
+                emit("cache_load", store);
+            }
+        }
+    }
+
+    function _getModuleURI(id) {
+        return cfg.moduleURI[id] ? cfg.moduleURI[id] : cfg.alias[id];
+    }
+
+    function _useCache(id, deps, factory) {
+        if (typeof(JSON) == "undefined") {
+            return false;
+        }
+        if (!isCache) {
+            return false;
+        }
+        if (!(JSON && window.localStorage)) {
+            return false;
+        }
+        if (cfg.debug) {
+            return false;
+        }
+        var agent = navigator.userAgent.toLowerCase();
+        if (agent.indexOf("msie") > 0) {
+            var m = agent.match(/msie\s([\d\.]+);/i);
+            if (m && m.length >= 2 && parseInt(m[1]) <= 6) {
+                return false;
+            }
+        }
+        if (id && id.indexOf("_") == 0) {
+            return false;
+        }
+        if (factory && factory.toString().indexOf("_cacheThisModule_") < 0) {
+            return false;
+        }
+        return true;
+    }
+
+    function _cacheModule(id, deps, factory) {
+        var key = "_m_" + id;
+        var _t = localStorage.getItem(key);
+        var ms = _t ? JSON.parse(_t) : {};
+        ms = {"id": id, "deps": deps, "factory": factory.toString(), "path": _getModuleURI(id), "cacheTime": (new Date()).getTime() + cacheTime};
+        try {
+            localStorage.removeItem(key);
+            localStorage.setItem(key, JSON.stringify(ms));
+            emit("module_cached", id);
+        } catch (e) {
+        }
+    }
+
+    function _define(id, deps, factory) {
+        if (arguments.length === 2) {
+            factory = deps;
+            deps = null;
+        }
+        deps = isType("Array", deps) ? deps : (deps ? [deps] : []);
+        if (isType("Function", factory)) {
+            var _deps = parseDependencies(factory.toString());
+        }
+        _useCache(id, deps, factory) && _cacheModule(id, deps, factory);
+        deps = mergeArray(deps, _deps);
+        var mod = new Module(id);
+        mod.dependencies = deps || [];
+        for (var i = mod.dependencies.length - 1; i >= 0; i--) {
+            mod.dependencies[i] = parseVars(mod.dependencies[i]);
+        }
+        mod.factory = factory;
+        if (id == "_init") {
+            cfg.callback.push(mod);
+        } else {
+            cfg.modules[id] = mod;
+        }
+        emit("module_ready", id);
+    }
+
+    function _require(id) {
+        id = parseVars(id);
+        var module = cfg.modules[id];
+        emit("module_require", id);
+        if (!module) {
+            emit("module_error", id);
+            return null
+        }
+        if (module.exports) {
+            return module.exports;
+        }
+        var now = new Date();
+        var factory = module.factory;
+        var exports = isType("Function", factory) ? factory(require, module.exports = {}, module) : factory;
+        module.exports = exports === undefined ? module.exports : exports;
+        cfg.timing[id] = new Date() - now;
+        return module.exports;
+    }
+
+    _require.async = _modulejs;
+    _require.css = function (path) {
+        path = cfg.cssAlias && cfg.cssAlias[path] ? cfg.cssAlias[path] : path;
+        if (!path) {
+            return;
+        }
+        var l;
+        if (!window["_loadCss"] || window["_loadCss"].indexOf(path) < 0) {
+            l = document.createElement('link');
+            l.setAttribute('type', 'text/css');
+            l.setAttribute('rel', 'stylesheet');
+            l.setAttribute('href', path);
+            l.setAttribute("id", "loadCss" + Math.random());
+            document.getElementsByTagName("head")[0].appendChild(l);
+            window["_loadCss"] ? (window["_loadCss"] += "|" + path) : (window["_loadCss"] = "|" + path);
+        }
+        l && (typeof callback == "function") && (l.onload = callback);
+        return true;
+    }
+    function _modulejs(deps, factory) {
+        _define("_init", deps, factory);
+    }
+
+    function checkDeps(deps) {
+        var list = {}, flag = true;
+        for (var i = 0; i < deps.length; i++)list[deps[i]] = 1;
+        getDesps(deps, list);
+        for (var i in list) {
+            if (!cfg.modules[i]) {
+                loadModule(i);
+                flag = false;
+            }
+        }
+        return flag;
+        function getDesps(deps, list) {
+            for (var i = 0; i < deps.length; i++) {
+                if (!list[deps[i]]) {
+                    list[deps[i]] = 1;
+                }
+                if (cfg.modules[deps[i]] && list[deps[i]] != 2) {
+                    list[deps[i]] = 2;
+                    getDesps(cfg.modules[deps[i]].dependencies, list);
+                }
+            }
+        }
+    }
+
+    function parseVars(id) {
+        var VARS_RE = /{([^{]+)}/g
+        var vars = cfg.vars
+        if (vars && id.indexOf("{") > -1) {
+            id = id.replace(VARS_RE, function (m, key) {
+                return isType("String", vars[key]) ? vars[key] : key
+            })
+        }
+        return id
+    }
+
+    function mergeObject(a, b) {
+        for (var i in b) {
+            if (!b.hasOwnProperty(i)) {
+                continue;
+            }
+            if (!a[i]) {
+                a[i] = b[i];
+            } else if (Object.prototype.toString.call(b[i]) == "[object Object]") {
+                mergeObject(a[i], b[i]);
+            } else {
+                a[i] = b[i];
+            }
+        }
+        return a;
+    }
+
+    function config(obj) {
+        return cfg = mergeObject(cfg, obj);
+    }
+
+    function Module(id) {
+        this.id = id;
+        this.dependencies = [];
+        this.exports = null;
+        this.uri = "";
+    }
+
+    function loadModule(id) {
+        var m;
+        if (m = cfg.cacheLoad[id]) {
+            return _define(m.id, m.deps, eval("a = " + m.factory));
+        }
+        if (cfg.modules[id]) {
+            emit("module_ready", id);
+            return;
+        }
+        var url = cfg.alias[id] ? cfg.alias[id] : "";
+        if (!url) {
+            emit("module_loss_alias", id);
+            return;
+        }
+        if (cfg.uris[url]) {
+            return;
+        }
+        cfg.uris[url] = 1;
+        var head = document.getElementsByTagName("head")[0] || document.documentElement;
+        var baseElement = head.getElementsByTagName("base")[0];
+        var node = document.createElement("script");
+        node.charset = "utf-8";
+        node.async = true;
+        node.src = url;
+        var handler = function () {
+            var callee = arguments.callee
+            cfg.timing[callee.uri] = new Date() - callee.time;
+        };
+        handler.time = new Date();
+        handler.uri = url;
+        node.onload = handler;
+        baseElement ? head.insertBefore(node, baseElement) : head.appendChild(node);
+        cfg.debug && emit("file_loading", url);
+    }
+
+    function on(name, cb) {
+        var cbs = cfg.events[name];
+        if (!cbs) {
+            cbs = cfg.events[name] = [];
+        }
+        cbs.push(cb);
+    }
+
+    function emit(name, evt) {
+        debug(name, evt);
+        if (!cfg.events[name] || cfg.events[name].length == 0) {
+            return;
+        }
+        for (var i = 0, l = cfg.events[name].length; i < l; i++) {
+            cfg.events[name][i](evt);
+        }
+        if (name === 'error') {
+            delete cfg.events[name];
+        }
+    }
+
+    function cleanArray(a) {
+        var n = [];
+        for (var i = 0; i < a.length; i++) {
+            a[i] && n.push(a[i]);
+        }
+        return n;
+    }
+
+    function mergeArray(a, b) {
+        for (var i = 0; i < b.length; i++) {
+            (("," + a + ",").indexOf("," + b[i] + ",") < 0) && a.push(b[i]);
+        }
+        return a;
+    }
+
+    function isType(type, obj) {
+        return Object.prototype.toString.call(obj) === "[object " + type + "]"
+    }
+
+    function parseDependencies(code) {
+        var commentRegExp = /(\/\*([\s\S]*?)\*\/|([^:]|^)\/\/(.*)$)/mg;
+        var cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/g;
+        var ret = [];
+        code.replace(commentRegExp, "").replace(cjsRequireRegExp, function (match, dep) {
+            dep && ret.push(parseVars(dep));
+        })
+        return ret;
+    }
+
+    function debug() {
+        if (!cfg.debug) {
+            return true;
+        }
+        var a = [], l = arguments.length;
+        for (var i = 0; i < l; i++) {
+            a.push(arguments[i]);
+        }
+        try {
+            console.log.apply(console, a);
+        } catch (e) {
+        }
+    }
+}(this));</script>
+
+
+<script>
+window.FOOTDETECT = {};
+function setCookie(name, value, expires, path, domain, secure) {
+    var exp = new Date(),
+            expires = arguments[2] || null,
+            path = arguments[3] || "/",
+            domain = arguments[4] || null,
+            secure = arguments[5] || false;
+    //expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : "";
+    expires ? exp.setTime(exp.getTime() + parseInt(expires) * 60 * 1000) : "";
+    document.cookie = name + '=' + escape(value) + (expires ? ';expires=' + exp.toGMTString() : '') + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
+}
+
+function getCookie(name) {
+    //读取COOKIE
+    var reg = new RegExp("(^| )" + name + "(?:=([^;]*))?(;|$)"),
+            val = document.cookie.match(reg);
+    return val ? (val[2] ? unescape(val[2]) : "") : null;
+}
+
+function getQuery(name, url) {
+    //参数：变量名，url为空则表从当前页面的url中取
+    var u = arguments[1] || window.location.search,
+            reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"),
+            r = u.substr(u.indexOf("\?") + 1).match(reg);
+    return r != null ? r[2] : "";
+}
+
+function loadUrl(o) {
+    o.element = o.element || 'script';
+    var el = document.createElement(o.element);
+    el.charset = o.charset || 'utf-8';
+    o.onBeforeSend && o.onBeforeSend(el);
+    el.onload = el.onreadystatechange = function () {
+        if (/loaded|complete/i.test(this.readyState) || navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+            o.onLoad && o.onLoad();
+            clear();
+        }
+    };
+    el.onerror = function () {
+        clear();
+    };
+    el.src = o.url;
+    document.getElementsByTagName('head')[0].appendChild(el);
+
+    function clear() {
+        if (!el) {
+            return;
+        }
+        el.onload = el.onreadystatechange = el.onerror = null;
+        el.parentNode && (el.parentNode.removeChild(el));
+        el = null;
+    }
+}
+
+function delCookie(name, path, domain, secure) {
+    //删除cookie
+    var value = getCookie(name);
+    if (value != null) {
+        var exp = new Date();
+        exp.setMinutes(exp.getMinutes() - 1000);
+        path = path || "/";
+        document.cookie = name + '=;expires=' + exp.toGMTString() + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
+    }
+}
+
+(function () {
+    var Foot = {};
+
+    Foot.setComboJs = function () {
+        var ua = navigator.userAgent.toLowerCase(),
+                isInWx = (ua.indexOf('micromessenger')) > -1,
+                isInQQ = ((/qq\/([\d\.]+)*/).test(ua))
+        _conf = {
+            'report': '/js/version/2014/07/pp.wg.mobilereport.20140716.js,/js/mobile/common/dest/wg.report.min.js',
+            'ping': '/js/version/2014/06/pp.mobile.ping.20140613.js',
+            'wxapi': '/js/mobile/common/wg.wxapi.min.js',
+            'mwfoot': '/js/mobile/common/wg.mwfoot.min.js',
+            'wxfoot': '/js/mobile/common/wg.wxfoot.min.js',
+            'wgstorage': '/js/mobile/common/dest/wg.storage.min.js',
+            'jdappdl': '/js/mobile/common/wg.jdappdl.min.js',
+            'navfoot': '/js/mobile/common/wg.navfoot.min.js',
+            'imgSpeed': '/js/mobile/common/wg.imgReport.min.js',
+            'pdebug': '/js/mobile/common/wg.debug.min.js'
+        },
+                _footconf = window.FOOTCONFIG || [],
+                _sourceArr = [],
+                _script = document.createElement('SCRIPT');
+        FOOTDETECT.scene = (ua.indexOf('micromessenger')) > -1 ? 'weixin' : ((/qq\/([\d\.]+)*/).test(ua) ? 'qq' : 'mobile');
+        setCookie('cid', FOOTDETECT.scene === 'weixin' ? 1 : (FOOTDETECT.scene === 'qq' ? 2 : 3), 43200, '', 'wanggou.com');
+
+        _footconf.push('wgstorage');
+        FOOTDETECT.scene == "weixin" && _footconf.push('imgSpeed');
+        _footconf.push('pdebug');
+
+        if (window._jdApp) {
+            _footconf.push('jdappdl');
+        }
+        if (window._navfoot) {
+            _footconf.push('navfoot');
+        }
+        for (var i = 0; i < _footconf.length; i++) {
+            var s = _conf[_footconf[i]];
+            if (s) {
+                _sourceArr.push(s);
+            }
+        }
+        setTimeout(function () {
+            (document.head || document.getElementsByTagName('head')[0]).appendChild(_script);
+            _script.id = 'abc';
+            _script.charset = 'utf-8';
+            _script.defer = 'defer';
+            _script.async = 'async';
+            _script.src = 'http://static.paipaiimg.com/c/=' + _sourceArr.join(',') + '?t=201408081509';
+        }, 500);
+    };
+
+    Foot.setRegion = function () {
+        var arr = (/(wanggou.com|qq.com)$/i).exec(location.host),
+                host,
+                sid = getQuery('sid'),
+                uk = getQuery('uk'),
+                cookie_sid = getCookie('sid'),
+                uin = getCookie('uin'),
+                wg_uin = getCookie('wg_uin');
+
+        if (arr && arr.length === 2) {
+            host = arr[1];
+            //sid同步
+            if (sid) {
+                setCookie('sid', sid, 43200, '', host);
+                if (cookie_sid != sid) {
+                    setCookie('wg_skey', 0, 60, '', host);
+                    setCookie('skey', 0, 60, '', host);
+                }
+            }
+            //uk打入cookie
+            uk && setCookie('uk', uk, 43200, '', host);
+            //修正多个账号登录后导致的混乱
+            if (uin && wg_uin) {
+                uin = uin.replace(/^o/i, "") * 1;
+                wg_uin = wg_uin * 1;
+                if (/qq\/[\d\.]+/i.test(navigator.userAgent) && uin != wg_uin) {//两个不一致，则清空uin和skey
+                    setCookie('wg_uin', '', 172800, '', host);
+                    setCookie('uin', '', 172800, '', host);
+                    setCookie('wg_skey', '', 172800, '', host);
+                    setCookie('skey', '', 172800, '', host);
+                }
+            }
+        }
+
+        window.regioncb = function (o) {
+            if (o.errCode == "0") {
+                var d = o.data;
+                jdlocid = d.provid + "_" + d.cityid + "_" + d.countyid;
+                jdlocname = d.provname + "_" + d.cityname + "_" + d.countyname;
+                localStorage && localStorage.setItem('jdLOCAddrId', jdlocid);
+                localStorage && localStorage.setItem('jdLOCAddrName', jdlocname);
+                setCookie('jdLOCAddrId', jdlocid, 5256000, '', 'wanggou.com');
+                setCookie('jdLOCAddrName', jdlocname, 5256000, '', 'wanggou.com');
+            }
+
+        }
+        //打地区cookie
+        if (!(getCookie("jdLOCAddrId") || localStorage.getItem('jdLOCAddrId'))) {
+            loadUrl({
+                url: 'http://bases.wanggou.com/recvaddr/getjd3lvladdrbyip?callback=regioncb',
+                charset: 'gbk'
+            });
+        }
+    };
+
+    Foot.setEvent = function () {
+        var events = ['load'];
+        for (var i = 0; i < events.length; i++) {
+            (function (eName) {
+                window.addEventListener(eName, function () {
+                    FOOTDETECT[eName] = true;
+                });
+            })(events[i]);
+        }
+    };
+    Foot.showBackTip = function () {
+
+        function checkTime() {//8月16日零点前有效,
+            var date20140816 = 1408118400000, today = new Date();
+            if (today.getTime() >= date20140816) {
+                return false;
+            }
+            var day = today.getDate(), hour = today.getHours(), minute = today.getMinutes();
+            if (day % 2 == 0) {
+                if (hour == 10 && minute >= 30 && minute <= 40) {
+                    return true;
+                }
+            } else {
+                if (hour == 22 && minute >= 30 && minute <= 40) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        if (!checkTime()) {
+            return 0;
+        }
+
+        if (/qq\/([\d\.]+)*/i.test(navigator.userAgent)) {
+            return 0;
+        }//只在微信中使用，手Q不需要此功能
+        if (!(/android/i.test(navigator.userAgent))) {
+            return 0;
+        }//只在android微信使用此功能
+
+        var URLS = {
+            'tipItem': /mm\.wanggou\.com\/item\/jd\.shtml/i,
+            'tipPromote': /mm\.wanggou\.com\/promote\/brand_detail_weixin\.shtml/i,
+            'tipEvent': /mm\.wanggou\.com\/(xin|brand|juhui)\/event\d{1,3}\/index\.shtml/i
+        };
+
+        function checkUrl(url) {
+            var result = null;
+            for (var k in URLS) {
+                if (URLS[k].test(url)) {
+                    result = k;
+                    break;
+                }
+            }
+            return result;
+        };
+        var flag = checkUrl(window.location.href);
+        if (flag == null) {
+            return 0;
+        }
+
+        var localData, keyName = 'wxBackTip';
+
+        localData = window.localStorage.getItem(keyName) || getCookie(keyName);
+        localData = localData == null ? {'tipItem': 0, 'tipPromote': 0, 'tipEvent': 0} : JSON.parse(localData);
+
+        if (localData[flag] == 1) {
+            return 0;
+        } else {
+            localData[flag] = 1;
+            var strVal = JSON.stringify(localData);
+            window.localStorage.setItem(keyName, strVal);
+            setCookie(keyName, strVal, 5 * 365 * 24 * 60, '/', 'wanggou.com');
+        }
+
+        var css = '.back_tip {height:100%;width:100%;position:fixed;top:0;left:0;right:0;bottom:0;z-index:902;background:rgba(0, 0, 0, 0.5);}' +
+                        '.back_tip img {width:73.43%;margin-top:5px;left:65.62%;position:relative;-webkit-transform:translateX(-65.62%);margin-left:-8%;}',
+                html = '<img src="http://static.paipaiimg.com/wx/img/detail/back_tip.png" alt="" ">',
+                divEl = document.createElement('div'), styleEl = document.createElement('style');
+        styleEl.innerHTML = css;
+        divEl.className = 'back_tip';
+        divEl.innerHTML = html;
+
+        divEl.addEventListener('touchstart', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
+        divEl.addEventListener('touchmove', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        }, false);
+        divEl.addEventListener('touchend', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            document.body.removeChild(divEl);
+        }, false);
+        document.head.appendChild(styleEl);
+        document.body.appendChild(divEl);
+
+    };
+
+    Foot.init = function () {
+        this.setComboJs();
+        this.setRegion();
+        this.setEvent();
+        this.showBackTip();
+    };
+
+    Foot.init();
+})();
+</script>

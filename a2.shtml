@@ -1,0 +1,228 @@
+<script>
+    function $getQuery(name, url) {
+        var u = arguments[1] || window.location.search, reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"), r = u.substr(u.indexOf("\?") + 1).match(reg);
+        return r != null ? r[2] : "";
+    }
+    ;
+    function $loadUrl(o) {
+        o.element = o.element || 'script';
+        var el = document.createElement(o.element);
+        el.charset = o.charset || 'utf-8';
+        o.onBeforeSend && o.onBeforeSend(el);
+        el.onload = el.onreadystatechange = function () {
+            if (/loaded|complete/i.test(this.readyState) || navigator.userAgent.toLowerCase().indexOf("msie") == -1) {
+                o.onLoad && o.onLoad();
+                clear();
+            }
+        };
+        el.onerror = function () {
+            clear();
+        };
+        el.src = o.url;
+        document.getElementsByTagName('head')[0].appendChild(el);
+        function clear() {
+            if (!el) {
+                return;
+            }
+            el.onload = el.onreadystatechange = el.onerror = null;
+            el.parentNode && (el.parentNode.removeChild(el));
+            el = null;
+        }
+    }
+    ;
+    function $setCookie(name, value, expires, path, domain, secure) {
+        var exp = new Date(), expires = arguments[2] || null, path = arguments[3] || "/", domain = arguments[4] || null, secure = arguments[5] || false;
+        expires ? exp.setMinutes(exp.getMinutes() + parseInt(expires)) : "";
+        document.cookie = name + '=' + escape(value) + (expires ? ';expires=' + exp.toGMTString() : '') + (path ? ';path=' + path : '') + (domain ? ';domain=' + domain : '') + (secure ? ';secure' : '');
+    }
+    ;
+    function $getCookie(name) {
+        var reg = new RegExp("(^| )" + name + "(?:=([^;]*))?(;|$)"), val = document.cookie.match(reg);
+        return val ? (val[2] ? unescape(val[2]) : "") : null;
+    }
+    ;
+    (function (w) {
+        function LsCookie() {
+            this.json = w.JSON;
+            this.ls = w.localStorage;
+            this.whiteKeys = ["visitkey", "EA", "IA", "CT", "PD"];
+        }
+
+        LsCookie.prototype.isInWhiteKeys = function (key) {
+            return this.whiteKeys.indexOf(key) > -1;
+        }
+        LsCookie.prototype.getAllKeys = function () {
+            var prop, result = [], ls = this.ls;
+            for (prop in ls) {
+                result.push(prop);
+            }
+            return result;
+        }
+        LsCookie.prototype.setLocCookie = function (key, value, expires, path, domain) {
+            var exp = new Date(), expires = arguments[2] || 52560000, path = arguments[3] || "/", domain = arguments[4] || "paipai.com", data = {};
+            if (!this.isInWhiteKeys(key)) {
+                return false;
+            }
+            exp.setMinutes(exp.getMinutes() + parseInt(expires));
+            data["value"] = escape(value);
+            data["expires"] = exp.getTime();
+            data["path"] = path;
+            data["domain"] = domain;
+            this.ls.setItem(key, this.json.stringify(data));
+            try {
+                w.$setCookie(key, value, expires, path, domain);
+            } catch (ex) {
+            }
+            return true;
+        }
+        LsCookie.prototype.getLocCookie = function (key) {
+            var result = "";
+            if (!this.isInWhiteKeys(key)) {
+                return"";
+            }
+            if (result = this.ls.getItem(key)) {
+                result = this.json.parse(result);
+                if (result.expires && result.expires < Date.now()) {
+                    this.ls.removeItem(key);
+                    return"";
+                } else {
+                    if (!w.$getCookie(key)) {
+                        w.$setCookie(key, result.value, result.expires, result.path, result.domain);
+                    }
+                    return unescape(result.value || "");
+                }
+            }
+            return"";
+        }
+        LsCookie.prototype.setLoc = function (key, value, expires, path, domain) {
+            var exp = new Date(), expires = arguments[2] || 52560000, path = arguments[3] || "/", domain = arguments[4] || "paipai.com", data = {};
+            if (!this.isInWhiteKeys(key)) {
+                return false;
+            }
+            exp.setMinutes(exp.getMinutes() + parseInt(expires));
+            data["value"] = escape(value);
+            data["expires"] = exp.getTime();
+            data["path"] = path;
+            data["domain"] = domain;
+            this.ls.setItem(key, this.json.stringify(data));
+            return true;
+        }
+        LsCookie.prototype.getLoc = function (key) {
+            var result = "";
+            if (!this.isInWhiteKeys(key)) {
+                return"";
+            }
+            if (result = this.ls.getItem(key)) {
+                result = this.json.parse(result);
+                if (result.expires && result.expires < Date.now()) {
+                    this.ls.removeItem(key);
+                    return"";
+                } else {
+                    return unescape(result.value || "");
+                }
+            }
+            return"";
+        }
+        LsCookie.prototype.getVal = function (key) {
+            var val = this.getLocCookie(key) || w.$getCookie(key);
+            return val;
+        }
+        w.LsCookie = LsCookie;
+    })(this);
+    window.synPPVisitKey = function () {
+        window["loadPPVisitKey"] = function (datas) {
+            if (datas && datas.visitkey) {
+                ls.setLocCookie("visitkey", datas.visitkey);
+                window.parent.postMessage("visitkey=" + datas.visitkey, "*");
+            }
+        }
+        var ls = new LsCookie(), visitkey = $getQuery("visitkey"), ppcgi = "http://party.paipai.com/tws64/m/pvlog/set_visitkey?callback=loadPPVisitKey&_t=" + Math.random();
+        if (visitkey != "" && /\d+/.test(visitkey) && visitkey > 4294967295) {
+            ls.setLocCookie("visitkey", visitkey);
+            window.parent.postMessage("visitkey=" + visitkey, "*");
+            return;
+        }
+        visitkey = ls.getLocCookie("visitkey");
+        if (visitkey != "") {
+            window.parent.postMessage("visitkey=" + visitkey, "*");
+        } else {
+            $loadUrl({url: ppcgi});
+        }
+    }
+    window.synPTag = function () {
+        function do_set_cookie(cookieName, cookieValue, expires, path, domain, secure) {
+            document.cookie = escape(cookieName) + '=' + escape(cookieValue) + (expires ? '; expires=' + expires.toGMTString() : '') + (path ? '; path=' + path : '') + (domain ? '; domain=' + domain : '') + (secure ? '; secure' : '');
+        }
+
+        function getPPRD_PStr() {
+            var val = "", data = {}, hasData = false;
+            for (var i = 0, len = pprd_p_arr.length; i < len; i++) {
+                val = ls.getLoc(pprd_p_arr[i]);
+                if (!!val) {
+                    data[pprd_p_arr[i]] = val;
+                    hasData = true;
+                }
+            }
+            return hasData ? ls.json.stringify(data) : "";
+        }
+
+        function synLS2PPRD_P() {
+            var val = "";
+            for (var i = 0, len = pprd_p_arr.length; i < len; i++) {
+                val = ls.getLoc(pprd_p_arr[i]);
+                if (!!val) {
+                    synValue2PPRD_P(pprd_p_arr[i], val);
+                }
+            }
+        }
+
+        function synValue2PPRD_P(prefix, val) {
+            var pprd_p = $getCookie("PPRD_P") || "";
+            var rd = prefix + "." + val;
+            var regs = {EA: /EA\.(\d+)\.(\d+)\.(\d+)(\D?)/gim, IA: /IA\.(\d+)\.(\d+)\.(\d+)(\D?)/gim, CT: /CT\.(\d+)\.(\d+)\.(\d+)(\D?)/gim, PD: /PD\.(\d+)\.(\d+)\.(\d+)(\D?)/gim};
+            var reg = regs[prefix];
+            if (!reg.test(pprd_p)) {
+                pprd_p += (0 == pprd_p.length ? rd : "-" + rd);
+            } else {
+                if ("EA" == prefix || "IA" == prefix || "CT" == prefix || "PD" == prefix) {
+                    pprd_p = pprd_p.replace(reg, rd + "$4");
+                }
+            }
+            try {
+                do_set_cookie("PPRD_P", pprd_p, new Date((new Date()).getTime() + 259200000), "/", "paipai.com", 0);
+            } catch (ex) {
+            }
+        }
+
+        function set_pprd_p_lsCookie(prefix, val) {
+            try {
+                var str;
+                if (prefix && val) {
+                    ls.setLoc(prefix, val, 4320);
+                }
+                synLS2PPRD_P();
+                str = getPPRD_PStr();
+                str ? window.parent.postMessage("PPRD_P=" + str, "*") : "";
+                window.synPPVisitKey();
+            } catch (e) {
+                window.synPPVisitKey();
+            }
+        }
+
+        var arr, pageid, ls = new LsCookie(), pprd_p_arr = ["EA", "IA", "CT", "PD"], ptag = $getQuery("ptag") || "";
+        arr = ptag.split(".") || [];
+        pageid = arr[0] || 0;
+        if (pageid >= 17001 && pageid < 20000) {
+            set_pprd_p_lsCookie("EA", ptag);
+        } else if (pageid >= 27001 && pageid < 30000) {
+            set_pprd_p_lsCookie("IA", ptag);
+        } else if (pageid >= 37001 && pageid < 40000) {
+            set_pprd_p_lsCookie("CT", ptag);
+        } else if (pageid >= 47001 && pageid < 50000) {
+            set_pprd_p_lsCookie("PD", ptag);
+        } else {
+            set_pprd_p_lsCookie();
+        }
+    }
+    window.synPTag();
+</script>
